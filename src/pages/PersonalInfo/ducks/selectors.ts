@@ -4,15 +4,15 @@ import { PersonalInfo } from "../types";
 import { PersonalInfoState } from "./reducer";
 
 export const PersonalInfoSelector = (state: RootState): PersonalInfoState => {
-    return state.personalInfo
-  };
+  return state.personalInfo
+};
 
 export const selectIsLoading = createSelector(
-    PersonalInfoSelector,
+  PersonalInfoSelector,
   (state): boolean => state.isLoading
 );
 
 export const selectPersonalInfo = createSelector(
   PersonalInfoSelector,
-(state): PersonalInfo => state.personalInfo
+  (state): PersonalInfo => state.personalInfo
 );

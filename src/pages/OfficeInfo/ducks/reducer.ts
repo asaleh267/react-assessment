@@ -3,19 +3,19 @@ import * as actions from "./actions";
 import { OfficeInfo } from "../types";
 
 export interface OfficeInfoState {
-    officeInfo: OfficeInfo;
-    isLoading: boolean;
+  officeInfo: OfficeInfo;
+  isLoading: boolean;
 }
 
 export const defaultState: OfficeInfoState = {
-    officeInfo: {
-      buildingName: "",
-      area:"",
-      landLineNumber: "",
-      addressLine1: "",
-      addressLine2: "",
-      poBoxNumber: ""
-    },
+  officeInfo: {
+    buildingName: "",
+    area: "",
+    landLineNumber: "",
+    addressLine1: "",
+    addressLine2: "",
+    poBoxNumber: ""
+  },
   isLoading: false
 };
 

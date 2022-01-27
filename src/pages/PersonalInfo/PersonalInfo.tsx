@@ -21,12 +21,12 @@ const PersonalInfo: FunctionComponent<PersonalInfoProps> = props => {
   const [validationErrorMsg, setValidationErrorMsg] = React.useState("");
 
   const fields = [
-    {id: "name", name: "Name"},
-    {id: "email", name: "Email"},
-    {id: "mobileNumber", name: "Mobile Number"},
-    {id: "addressLine1", name: "Address Line 1"},
-    {id: "addressLine2", name: "Address Line 2"},
-    {id: "addressLine3", name: "Address Line 3"},
+    { id: "name", name: "Name" },
+    { id: "email", name: "Email" },
+    { id: "mobileNumber", name: "Mobile Number" },
+    { id: "addressLine1", name: "Address Line 1" },
+    { id: "addressLine2", name: "Address Line 2" },
+    { id: "addressLine3", name: "Address Line 3" },
   ]
 
   const setErrors = (errors: any) => {
@@ -35,12 +35,12 @@ const PersonalInfo: FunctionComponent<PersonalInfoProps> = props => {
   }
 
   return (
-<Formik
+    <Formik
       initialValues={{
         ...personalInfo
       }}
       onSubmit={({ ...values }) => {
-        dispatch(savePersonalInfoDate({...values}))
+        dispatch(savePersonalInfoDate({ ...values }))
       }}
       validationSchema={personalInfoSchema}
     >
@@ -50,39 +50,38 @@ const PersonalInfo: FunctionComponent<PersonalInfoProps> = props => {
         submitForm,
         errors,
         isValid
-      }) => (    
-      <>
-      <ValidationError message={validationErrorMsg} />
-      {fields.map(field => (
-        <Grid container display={"flex"} alignItems={"center"} mb={2} key={field.id}>
-        <Grid item xs={5} md={6} textAlign={"right"} paddingRight={3}>{field.name}</Grid>
-        <Grid item xs={7} md={6} textAlign={"left"}>
-          <RakTextField name={field.id}/>
-        </Grid>
-      </Grid>
-        )
+      }) => (
+        <>
+          <ValidationError message={validationErrorMsg} />
+          {fields.map(field => (
+            <Grid container display={"flex"} alignItems={"center"} mb={2} key={field.id}>
+              <Grid item xs={5} md={6} textAlign={"right"} paddingRight={3}>{field.name}</Grid>
+              <Grid item xs={7} md={6} textAlign={"left"}>
+                <RakTextField name={field.id} />
+              </Grid>
+            </Grid>
+          )
+          )}
+          <LoadingButton
+            loadingIndicator="Loading..."
+            loading={isLoading}
+            variant="contained"
+            onClick={() => {
+              if (isValid) {
+                handleSubmit();
+                onNext();
+              } else {
+                errors && setErrors(errors);
+              }
+            }}
+          >
+            Next
+          </LoadingButton>
+        </>
       )}
-      <LoadingButton
-        loadingIndicator="Loading..."
-        loading={isLoading}
-          variant="contained"
-          onClick={() =>{ 
-          if (isValid) {
-            handleSubmit();
-            onNext();
-          } else {
-          errors && setErrors(errors);
-          }
-          }}
-  >
-      Next
-  </LoadingButton>  
-</>
+    </Formik>
+  )
 
-  )}
-  </Formik>
-    )
-
-  };
+};
 
 export default PersonalInfo;

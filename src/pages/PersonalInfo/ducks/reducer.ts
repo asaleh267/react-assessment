@@ -3,17 +3,19 @@ import * as actions from "./actions";
 import { PersonalInfo } from "../types";
 
 export interface PersonalInfoState {
-    personalInfo: PersonalInfo;
-    isLoading: boolean;
+  personalInfo: PersonalInfo;
+  isLoading: boolean;
 }
 
 export const defaultState: PersonalInfoState = {
-    personalInfo: {name: "",
+  personalInfo: {
+    name: "",
     email: "",
     addressLine1: "",
     addressLine2: "",
     addressLine3: "",
-    mobileNumber: ""},
+    mobileNumber: ""
+  },
   isLoading: false
 };
 

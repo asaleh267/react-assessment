@@ -38,8 +38,8 @@ const Registration: FunctionComponent<RegistrationProps> = props => {
     const newActiveStep =
       isLastStep() && !allStepsCompleted()
         ? // It's the last step, but not all steps have been completed,
-          // find the first step that has been completed
-          steps.findIndex((step, i) => !(i in completed))
+        // find the first step that has been completed
+        steps.findIndex((step, i) => !(i in completed))
         : activeStep + 1;
     setActiveStep(newActiveStep);
   };
@@ -67,43 +67,43 @@ const Registration: FunctionComponent<RegistrationProps> = props => {
     setCompleted({});
   };
 
-return (
-  <>
-    <Box paddingX={2} height={164}>
-      <Typography variant="h6" fontWeight={"bold"} textAlign={"left"}>
-        {steps[activeStep]}
-      </Typography>
-      <RakStepper
-        steps={[
-          {
-            label: "Personal Info",
-            isCompleted: true,
-          },
-          {
-            label: "Office Info",
-            isCompleted: false,
-          },
-          {
-            label: "Confirmation",
-            isCompleted: false,
-          },
-        ]}
-        activeStep={activeStep}
-        onStepClick={(index) => {
-          handleStep(index);
-        }}
-      ></RakStepper>
-    </Box>
-    <DashedFrame height="calc(100vh - 220px)">
-      {steps[activeStep] === "Personal Info" && (
-        <PersonalInfo onNext={handleNext} />
-      )}
-      {steps[activeStep] === "Office Info" && <OfficeInfo onNext={handleNext} />}
-      {steps[activeStep] === "Confirmation Page" && (
-        <Confirmation onBack={handleBack} />
-      )}
-    </DashedFrame>
-  </>
+  return (
+    <>
+      <Box paddingX={2} height={164}>
+        <Typography variant="h6" fontWeight={"bold"} textAlign={"left"}>
+          {steps[activeStep]}
+        </Typography>
+        <RakStepper
+          steps={[
+            {
+              label: "Personal Info",
+              isCompleted: true,
+            },
+            {
+              label: "Office Info",
+              isCompleted: false,
+            },
+            {
+              label: "Confirmation",
+              isCompleted: false,
+            },
+          ]}
+          activeStep={activeStep}
+          onStepClick={(index) => {
+            handleStep(index);
+          }}
+        ></RakStepper>
+      </Box>
+      <DashedFrame height="calc(100vh - 220px)">
+        {steps[activeStep] === "Personal Info" && (
+          <PersonalInfo onNext={handleNext} />
+        )}
+        {steps[activeStep] === "Office Info" && <OfficeInfo onNext={handleNext} />}
+        {steps[activeStep] === "Confirmation Page" && (
+          <Confirmation onBack={handleBack} />
+        )}
+      </DashedFrame>
+    </>
   );
 };
 

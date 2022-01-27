@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectIsLoading, selectOfficeInfo } from './ducks/selectors';
 import { saveOfficeInfoData } from './ducks/actions';
 import { OfficeInfoProps } from './types';
-import Button from '@mui/material/Button';
 
 const OfficeInfo: FunctionComponent<OfficeInfoProps> = ({onNext}) => {
   const dispatch = useDispatch();

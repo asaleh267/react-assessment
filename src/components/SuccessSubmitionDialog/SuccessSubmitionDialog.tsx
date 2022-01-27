@@ -12,34 +12,34 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { Typography } from '@mui/material';
 
 const SuccessSubmitionDialog: FunctionComponent<SuccessSubmitionDialogProps> = (props) => {
-  const {isOpen, onClose} = props;
-  const classes= useStyles();
+  const { isOpen, onClose } = props;
+  const classes = useStyles();
 
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
     <Dialog
-    fullScreen={fullScreen}
-    open={isOpen}
-    onClose={onClose}
-    classes={{
-      paper: classes.paper
-    }}
-  >
-    <DialogContent classes={{root: classes.root}}>
-      <DialogContentText>
-        <CheckCircleOutlineIcon classes={{ root: classes.iconRoot}}/>
-        <Typography variant="h3">Success</Typography>
-        <Typography variant="h6">Your application has been submitted.</Typography>
-      </DialogContentText>
-    </DialogContent>
-    <DialogActions >
-      <Button autoFocus classes={{root: classes.button}} onClick={onClose}>
-        OK
-      </Button>
-    </DialogActions>
-  </Dialog>
+      fullScreen={fullScreen}
+      open={isOpen}
+      onClose={onClose}
+      classes={{
+        paper: classes.paper
+      }}
+    >
+      <DialogContent classes={{ root: classes.root }}>
+        <DialogContentText>
+          <CheckCircleOutlineIcon classes={{ root: classes.iconRoot }} />
+          <Typography variant="h3">Success</Typography>
+          <Typography variant="h6">Your application has been submitted.</Typography>
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions >
+        <Button autoFocus classes={{ root: classes.button }} onClick={onClose}>
+          OK
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 

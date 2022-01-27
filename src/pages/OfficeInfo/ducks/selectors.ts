@@ -4,8 +4,8 @@ import { OfficeInfo } from "../types";
 import { OfficeInfoState } from "./reducer";
 
 export const OfficeInfoStateSelector = (state: RootState): OfficeInfoState => {
-    return state.officeInfo
-  };
+  return state.officeInfo
+};
 
 export const selectIsLoading = createSelector(
   OfficeInfoStateSelector,
@@ -14,5 +14,5 @@ export const selectIsLoading = createSelector(
 
 export const selectOfficeInfo = createSelector(
   OfficeInfoStateSelector,
-(state): OfficeInfo => state.officeInfo
+  (state): OfficeInfo => state.officeInfo
 );

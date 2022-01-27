@@ -8,20 +8,20 @@ export const personalInfoSchema = yup.object({
     .trim()
     .nullable()
     .required("Building name is required"),
-    area: yup
+  area: yup
     .string()
     .required("Area is required"),
-    landLineNumber: yup
-    .string()  
+  landLineNumber: yup
+    .string()
     .required("Land line is required")
     .matches(phoneRegExp, 'Phone number is not valid'),
-    addressLine1: yup
-      .string()
-      .required("Address 1 is required"),
-      addressLine2: yup
-      .string()
-      .required("Address 2 is required"),
-      poBoxNumber: yup
-      .string()
-      .required("PO Box is required"),
+  addressLine1: yup
+    .string()
+    .required("Address 1 is required"),
+  addressLine2: yup
+    .string()
+    .required("Address 2 is required"),
+  poBoxNumber: yup
+    .string()
+    .required("PO Box is required"),
 });
