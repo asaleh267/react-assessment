@@ -27,3 +27,22 @@ export const submitPersonalInfo = (
     .then(res => res);
   };
   
+  export const getPersonalInfo = () => {
+    return axiosNetCore
+    .get("http://localhost:3001/personalInfo")
+    .then(res => res);
+  };
+  
+  export const getOfficeInfo = () => {
+    return axiosNetCore
+    .get("http://localhost:3001/officeInfo")
+    .then(res => res);
+  };
+  
+
+  export const getConfirmation = () => {
+    return axiosNetCore
+    .get("http://localhost:3001/confirmation")
+    .then(res => res);
+  };
+  

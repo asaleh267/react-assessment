@@ -21,7 +21,6 @@ export const defaultState: ConfirmationState = {
 
 const confirmationReducer = createReducer<ConfirmationState>({}, defaultState)
   .on(actions.saveConfirmationData, (state, payload) => { 
-    console.log("text")
     return {
     ...state,
     isLoading: true,
@@ -29,6 +28,8 @@ const confirmationReducer = createReducer<ConfirmationState>({}, defaultState)
   .on(actions.saveConfirmationDataSucceeded, (state, payload) => ({
     ...state,
     isLoading: false,
+    confirmation: payload
+
   }))
   .on(actions.saveConfirmationDataFailed, (state, payload) => ({
     ...state,

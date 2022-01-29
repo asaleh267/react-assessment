@@ -14,6 +14,7 @@ import { Box } from '@mui/system';
 import { submitOfficeInfo } from '../Registration/API';
 import { CircularProgress } from '@mui/material';
 import { useStyles } from './styles';
+import { fields } from './constants';
 
 const OfficeInfo = React.forwardRef<
   HTMLDivElement,
@@ -28,14 +29,6 @@ const OfficeInfo = React.forwardRef<
 
   const [validationErrorMsg, setValidationErrorMsg] = React.useState("");
 
-  const fields = [
-    { id: "buildingName", name: "Building Name" },
-    { id: "area", name: "Area" },
-    { id: "landLineNumber", name: "Landline Number" },
-    { id: "addressLine1", name: "Address Line 1" },
-    { id: "addressLine2", name: "Address Line 2" },
-    { id: "poBoxNumber", name: "PO Box Number" },
-  ]
   const setErrors = (errors: any) => {
     const errorMsg = getErrorMessageByObject(errors, fields.map(field => field.id), ", ");
     setValidationErrorMsg(errorMsg)
@@ -84,6 +77,7 @@ const OfficeInfo = React.forwardRef<
                   classes={{ root: classes.button }}
                   loadingIndicator={<CircularProgress size={24} classes={{ svg: classes.svg }} />}
                   loading={isLoading}
+                  disabled={!dirty}
                   variant="contained"
                   onClick={(e) => {
                     if (isValid && dirty) {

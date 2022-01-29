@@ -6,7 +6,6 @@ export const personalInfoSchema = yup.object({
   name: yup
     .string()
     .trim()
-    .nullable()
     .max(200, "Name must be under 200 characters")
     .required("Name is required"),
   email: yup

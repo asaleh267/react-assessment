@@ -28,6 +28,7 @@ const Confirmation: FunctionComponent<ConfirmationProps> = ({ onBack, onDone }) 
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
   const confirmation = useSelector(selectConfirmation);
+  console.log(confirmation)
 
   const handleCloseDialog = () => {
     setOpen(false);
@@ -48,7 +49,7 @@ const Confirmation: FunctionComponent<ConfirmationProps> = ({ onBack, onDone }) 
   const handleSubmit = () => {
     dispatch(actions.saveConfirmationData());
     confirmAttachments(confirmation).then(x => {
-      dispatch(actions.saveConfirmationDataSucceeded());
+      dispatch(actions.saveConfirmationDataSucceeded(confirmation));
       setOpen(true);
       onDone()
     }).catch(x => {
@@ -80,7 +81,7 @@ const Confirmation: FunctionComponent<ConfirmationProps> = ({ onBack, onDone }) 
           <ImageAttachment fileToPreview={confirmation.imageFile} onAttachmentAdd={(attachments => handleAddAttachment(attachments[0]))} canRemoveAttachments={true}
             onAttachmentRemove={handleRemoveAttachment}
           />
-          <Signature onTrim={(data) => dispatch(actions.addSignature(data.trimmedDataURL))}/>
+          {confirmation.signatureUrl ? <img src={confirmation.signatureUrl} alt="signature"/> : <Signature onTrim={(data) => dispatch(actions.addSignature(data.trimmedDataURL))}/>}
         </Grid>
       </Grid>
       <Box mx="auto" my={2}>

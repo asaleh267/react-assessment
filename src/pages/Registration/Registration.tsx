@@ -2,12 +2,17 @@ import Box from '@mui/material/Box';
 import Slide from '@mui/material/Slide';
 import Typography from '@mui/material/Typography';
 import React, { FunctionComponent } from 'react';
+import { useDispatch } from 'react-redux';
 
 import DashedFrame from '../../components/DashedFrame/DashedFrame';
 import RakStepper from '../../components/Stepper/Stepper';
 import Confirmation from '../Confirmation/Confirmation';
+import { saveConfirmationDataSucceeded } from '../Confirmation/ducks/actions';
+import { saveOfficeInfoDataSucceeded } from '../OfficeInfo/ducks/actions';
 import OfficeInfo from '../OfficeInfo/OfficeInfo';
+import { savePersonalInfoDataSucceeded } from '../PersonalInfo/ducks/actions';
 import PersonalInfo from '../PersonalInfo/PersonalInfo';
+import { getConfirmation, getOfficeInfo, getPersonalInfo } from './API';
 export interface RegistrationProps {
 
 }
@@ -18,6 +23,42 @@ const Registration: FunctionComponent<RegistrationProps> = props => {
   const [completed, setCompleted] = React.useState<{
     [k: number]: boolean;
   }>({});
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    getPersonalInfo().then(x => {
+      if(Object.keys(x.data).length !== 0) {
+        dispatch(savePersonalInfoDataSucceeded(x.data))
+        setActiveStep(1);
+        setCompleted({
+          0: true
+        })
+      }
+    })
+
+    getOfficeInfo().then(x => {
+      if(Object.keys(x.data).length !== 0) {
+        dispatch(saveOfficeInfoDataSucceeded(x.data))
+        setActiveStep(2)
+        setCompleted({
+          0: true,
+          1: true
+        })
+      }
+    })
+
+    getConfirmation().then(x => {
+      if(Object.keys(x.data).length !== 0) {
+        dispatch(saveConfirmationDataSucceeded(x.data))
+        setActiveStep(2)
+        setCompleted({
+          0: true,
+          1: true,
+          2: true
+        })
+      }
+    })
+  }, []);
 
   const containerRef = React.useRef(null);
 

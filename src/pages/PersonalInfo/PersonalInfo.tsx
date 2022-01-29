@@ -14,6 +14,7 @@ import { Box } from '@mui/system';
 import { submitPersonalInfo } from '../Registration/API';
 import { CircularProgress } from '@mui/material';
 import { useStyles } from './styles';
+import { fields } from './constants';
 
 const PersonalInfo = React.forwardRef<
   HTMLDivElement,
@@ -28,15 +29,6 @@ const PersonalInfo = React.forwardRef<
 
   const [validationErrorMsg, setValidationErrorMsg] = React.useState("");
 
-  const fields = [
-    { id: "name", name: "Name" },
-    { id: "email", name: "Email" },
-    { id: "mobileNumber", name: "Mobile Number" },
-    { id: "addressLine1", name: "Address Line 1" },
-    { id: "addressLine2", name: "Address Line 2" },
-    { id: "addressLine3", name: "Address Line 3" },
-  ]
-
   const setErrors = (errors: any) => {
     const errorMsg = getErrorMessageByObject(errors, fields.map(field => field.id), ", ");
     setValidationErrorMsg(errorMsg)
@@ -47,10 +39,10 @@ const PersonalInfo = React.forwardRef<
       <Formik
         initialValues={{
           ...personalInfo,
-          name: personalInfo.name
         }}
-        onSubmit={({ ...values }) => {
-          console.log(values)
+        enableReinitialize
+        onSubmit={({ ...values }, {validateForm}) => {
+          validateForm(values);
           dispatch(actions.savePersonalInfoData());
           submitPersonalInfo(values).then(x => {
             dispatch(actions.savePersonalInfoDataSucceeded(values));
@@ -68,6 +60,7 @@ const PersonalInfo = React.forwardRef<
           errors,
           isValid,
           dirty,
+          values
         }) => (
           <>
             <ValidationError message={validationErrorMsg} />
@@ -89,10 +82,11 @@ const PersonalInfo = React.forwardRef<
                   loadingIndicator={<CircularProgress size={24} classes={{ svg: classes.svg }} />}
                   loading={isLoading}
                   variant="contained"
+                  disabled={!dirty}
                   onClick={(e) => {
                     if (isValid && dirty) {
                       handleSubmit();
-                    } else if (isValid) {
+                    } else if (isValid && values.name.length) {
                       onNext()
                     } else {
                       errors && setErrors(errors);
