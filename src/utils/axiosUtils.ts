@@ -8,9 +8,7 @@ const defaultAxiosSettings: AxiosRequestConfig = {
   },
 };
 
-const appPath = process.env.REACT_APP_APP_PATH;
-
 export const axiosNetCore = axios.create({
-  baseURL: `${appPath}`,
+  baseURL: `/`,
   ...defaultAxiosSettings,
 });

@@ -1,11 +1,13 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import confirmationReducer from '../pages/Confirmation/ducks/reducer';
 import officeInfoReducer from '../pages/OfficeInfo/ducks/reducer';
 import personalInfoReducer from '../pages/PersonalInfo/ducks/reducer';
 
 export const store = configureStore({
   reducer: {
     personalInfo: personalInfoReducer,
-    officeInfo: officeInfoReducer
+    officeInfo: officeInfoReducer,
+    confirmation: confirmationReducer
   },
 });
 

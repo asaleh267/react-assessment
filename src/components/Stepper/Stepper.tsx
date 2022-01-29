@@ -48,7 +48,7 @@ const StyledConnector = styled(StepConnector)(({ theme }) => ({
   },
   [`&.${stepConnectorClasses.completed}`]: {
     [`& .${stepConnectorClasses.line}`]: {
-      borderColor: '#784af4',
+      borderColor: theme.palette.error.main,
     },
   },
   [`& .${stepConnectorClasses.line}`]: {
@@ -68,14 +68,14 @@ function StepIcon(props: StepIconProps, index: number) {
 }
 
 const RakStepper: FunctionComponent<RakStepperProps> = (props) => {
-  const { steps, activeStep, onStepClick } = props;
+  const { steps, activeStep, completed, onStepClick } = props;
   const classes = useStyles();
 
   return (
     <Stepper nonLinear activeStep={activeStep} alternativeLabel connector={<StyledConnector />}>
       {steps.map((step, index: number) => (
-        <Step key={step.label} completed={step.isCompleted}>
-          <StepButton onClick={() => step.isCompleted || index === activeStep ? onStepClick(index) : onStepClick(index)} classes={{
+        <Step key={step} completed={completed[index]}>
+          <StepButton onClick={(e) => completed[index] || index === activeStep ? onStepClick(index) : () => {}} classes={{
             root: classes.root
           }}>
             <StepLabel StepIconComponent={(props) => StepIcon(props, index)} classes={{

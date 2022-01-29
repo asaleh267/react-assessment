@@ -4,6 +4,7 @@ import { makeStyles } from "@mui/styles";
 export const useStyles = makeStyles((theme: Theme) => ({
     root: {
         fontStyle: "italic",
-        color: theme.palette.error.main
+        color: theme.palette.error.main,
+        marginBottom: theme.spacing(1)
     }
 }));

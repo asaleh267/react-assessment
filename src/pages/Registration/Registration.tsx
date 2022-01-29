@@ -1,4 +1,5 @@
 import Box from '@mui/material/Box';
+import Slide from '@mui/material/Slide';
 import Typography from '@mui/material/Typography';
 import React, { FunctionComponent } from 'react';
 
@@ -17,6 +18,8 @@ const Registration: FunctionComponent<RegistrationProps> = props => {
   const [completed, setCompleted] = React.useState<{
     [k: number]: boolean;
   }>({});
+
+  const containerRef = React.useRef(null);
 
   const totalSteps = () => {
     return steps.length;
@@ -49,22 +52,16 @@ const Registration: FunctionComponent<RegistrationProps> = props => {
   };
 
   const handleStep = (step: number) => {
-    if (step < activeStep) {
       setActiveStep(step);
-
-    }
   };
 
   const handleComplete = () => {
     const newCompleted = completed;
     newCompleted[activeStep] = true;
     setCompleted(newCompleted);
-    handleNext();
-  };
-
-  const handleReset = () => {
-    setActiveStep(0);
-    setCompleted({});
+    if (!isLastStep()) {
+      handleNext();
+    }
   };
 
   return (
@@ -74,33 +71,23 @@ const Registration: FunctionComponent<RegistrationProps> = props => {
           {steps[activeStep]}
         </Typography>
         <RakStepper
-          steps={[
-            {
-              label: "Personal Info",
-              isCompleted: true,
-            },
-            {
-              label: "Office Info",
-              isCompleted: false,
-            },
-            {
-              label: "Confirmation",
-              isCompleted: false,
-            },
-          ]}
+          steps={steps}
           activeStep={activeStep}
+          completed={completed}
           onStepClick={(index) => {
             handleStep(index);
           }}
         ></RakStepper>
       </Box>
-      <DashedFrame height="calc(100vh - 220px)">
-        {steps[activeStep] === "Personal Info" && (
-          <PersonalInfo onNext={handleNext} />
-        )}
-        {steps[activeStep] === "Office Info" && <OfficeInfo onNext={handleNext} />}
+      <DashedFrame height="calc(100vh - 220px)" ref={containerRef}>
+        {steps[activeStep] === "Personal Info" && <Slide direction="left" in={steps[activeStep] === "Personal Info"} container={containerRef.current}>
+          <PersonalInfo onNext={handleComplete} />
+        </Slide>}
+        {steps[activeStep] === "Office Info" && <Slide direction="left" in={steps[activeStep] === "Office Info"} container={containerRef.current}>
+          <OfficeInfo onNext={handleComplete} />
+        </Slide>}
         {steps[activeStep] === "Confirmation Page" && (
-          <Confirmation onBack={handleBack} />
+          <Confirmation onBack={handleBack} onDone={handleComplete}/>
         )}
       </DashedFrame>
     </>
@@ -108,5 +95,4 @@ const Registration: FunctionComponent<RegistrationProps> = props => {
 };
 
 export default Registration;
-
 

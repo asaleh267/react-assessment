@@ -25,7 +25,13 @@ const Header: FunctionComponent = () => {
           backgroundColor: "error.dark",
           borderRadius: "0px 0px 0px 24px"
         }}>
-          <Typography variant="body1" color="inherit" component="div" textTransform={"uppercase"}>
+          <Typography variant="body1" color="inherit" component="div" textTransform={"uppercase"} sx={{
+             width: "100%",
+             overflow: "hidden",
+             whiteSpace: "nowrap",
+             textOverflow: "ellipsis",
+             textAlign: "left"
+          }}>
             {name !== "" ? name : "User"}
           </Typography>
           <IconButton edge="start" color="inherit" aria-label="menu" sx={{ ml: 2 }}>

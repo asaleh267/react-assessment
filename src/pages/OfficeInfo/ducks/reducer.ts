@@ -20,9 +20,17 @@ export const defaultState: OfficeInfoState = {
 };
 
 const officeInfoReducer = createReducer<OfficeInfoState>({}, defaultState)
-  .on(actions.saveOfficeInfoData, (state, payload) => ({
-    officeInfo: payload,
-    isLoading: true,
-  }));
+.on(actions.saveOfficeInfoData, (state, payload) => ({
+  ...state,
+  isLoading: true,
+}))
+.on(actions.saveOfficeInfoDataSucceeded, (state, payload) => ({
+  officeInfo: payload,
+  isLoading: false,
+}))
+.on(actions.saveOfficeInfoDataFailed, (state, payload) => ({
+  ...state,
+  isLoading: false,
+}))
 
 export default officeInfoReducer;

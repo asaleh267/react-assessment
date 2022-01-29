@@ -20,9 +20,17 @@ export const defaultState: PersonalInfoState = {
 };
 
 const personalInfoReducer = createReducer<PersonalInfoState>({}, defaultState)
-  .on(actions.savePersonalInfoDate, (state, payload) => ({
-    personalInfo: payload,
+  .on(actions.savePersonalInfoData, (state, payload) => ({
+    ...state,
     isLoading: true,
-  }));
+  }))
+  .on(actions.savePersonalInfoDataSucceeded, (state, payload) => ({
+    personalInfo: payload,
+    isLoading: false,
+  }))
+  .on(actions.savePersonalInfoDataFailed, (state, payload) => ({
+    ...state,
+    isLoading: false,
+  }))
 
 export default personalInfoReducer;
