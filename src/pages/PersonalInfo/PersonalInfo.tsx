@@ -37,6 +37,7 @@ const PersonalInfo = React.forwardRef<
   return (
     <Box ref={ref}>
       <Formik
+      validateOnMount
         initialValues={{
           ...personalInfo,
         }}
@@ -82,11 +83,10 @@ const PersonalInfo = React.forwardRef<
                   loadingIndicator={<CircularProgress size={24} classes={{ svg: classes.svg }} />}
                   loading={isLoading}
                   variant="contained"
-                  disabled={!dirty}
                   onClick={(e) => {
                     if (isValid && dirty) {
                       handleSubmit();
-                    } else if (isValid && values.name.length) {
+                    } else if (isValid) {
                       onNext()
                     } else {
                       errors && setErrors(errors);

@@ -17,18 +17,20 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { useStyles } from './styles';
 
 const Confirmation: FunctionComponent<ConfirmationProps> = ({ onBack, onDone }) => {
-  const [open, setOpen] = React.useState(false);
   const classes = useStyles();
   const personalInfo = useSelector(selectPersonalInfo);
   const officeInfo = useSelector(selectOfficeInfo);
   const { name, mobileNumber, email, addressLine3 } = personalInfo;
   const { buildingName, area, landLineNumber, poBoxNumber } = officeInfo;
-  const [actionLabel, setActionLabel] = React.useState("Submit");
 
+  
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
   const confirmation = useSelector(selectConfirmation);
-  console.log(confirmation)
+
+  const [open, setOpen] = React.useState(false);
+  const [actionLabel, setActionLabel] = React.useState("Submit");
+  const [signatureUrl, setSignatureUrl] = React.useState(confirmation.signatureUrl);
 
   const handleCloseDialog = () => {
     setOpen(false);
@@ -48,8 +50,9 @@ const Confirmation: FunctionComponent<ConfirmationProps> = ({ onBack, onDone }) 
 
   const handleSubmit = () => {
     dispatch(actions.saveConfirmationData());
-    confirmAttachments(confirmation).then(x => {
-      dispatch(actions.saveConfirmationDataSucceeded(confirmation));
+    confirmAttachments({...confirmation, signatureUrl}).then(x => {
+      dispatch(actions.saveConfirmationDataSucceeded({...confirmation, signatureUrl}));
+      dispatch(actions.addSignature(signatureUrl));
       setOpen(true);
       onDone()
     }).catch(x => {
@@ -81,11 +84,11 @@ const Confirmation: FunctionComponent<ConfirmationProps> = ({ onBack, onDone }) 
           <ImageAttachment fileToPreview={confirmation.imageFile} onAttachmentAdd={(attachments => handleAddAttachment(attachments[0]))} canRemoveAttachments={true}
             onAttachmentRemove={handleRemoveAttachment}
           />
-          {confirmation.signatureUrl ? <img src={confirmation.signatureUrl} alt="signature"/> : <Signature onTrim={(data) => dispatch(actions.addSignature(data.trimmedDataURL))}/>}
+          {confirmation.signatureUrl ? <img src={confirmation.signatureUrl} alt="signature" /> : <Signature onTrim={(data) => setSignatureUrl(data.trimmedDataURL)} />}
         </Grid>
       </Grid>
       <Box mx="auto" my={2}>
-        <Button variant="contained" classes={{root: classes.backButton}} onClick={onBack}>Back</Button>
+        <Button variant="contained" classes={{ root: classes.backButton }} onClick={onBack}>Back</Button>
         <LoadingButton
           classes={{ root: classes.button }}
           loadingIndicator={<CircularProgress size={24} classes={{ svg: classes.svg }} />}

@@ -27,9 +27,7 @@ const confirmationReducer = createReducer<ConfirmationState>({}, defaultState)
   }})
   .on(actions.saveConfirmationDataSucceeded, (state, payload) => ({
     ...state,
-    isLoading: false,
-    confirmation: payload
-
+    confirmation: payload,
   }))
   .on(actions.saveConfirmationDataFailed, (state, payload) => ({
     ...state,
@@ -54,7 +52,8 @@ const confirmationReducer = createReducer<ConfirmationState>({}, defaultState)
     confirmation: {
       ...state.confirmation,
       signatureUrl: payload
-    }
+    },
+    isLoading: false
   }))
 
 export default confirmationReducer;

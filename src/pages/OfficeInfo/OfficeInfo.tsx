@@ -4,7 +4,7 @@ import ValidationError from '../../components/ValidationError/ValidationError';
 import RakTextField from '../../components/TextField/TextField';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { Formik } from 'formik';
-import { personalInfoSchema } from './schema';
+import { officeInfoSchema } from './schema';
 import { getErrorMessageByObject } from '../../utils/errorUtils';
 import { OfficeInfoProps } from './types';
 import { useDispatch, useSelector } from "react-redux";
@@ -36,6 +36,7 @@ const OfficeInfo = React.forwardRef<
   return (
     <Box ref={ref}>
       <Formik
+      validateOnMount
         initialValues={{
           ...officeInfo,
         }}
@@ -50,7 +51,7 @@ const OfficeInfo = React.forwardRef<
             setActionLabel("Retry");
           });
         }}
-        validationSchema={personalInfoSchema}
+        validationSchema={officeInfoSchema}
       >
         {({
           handleSubmit,
@@ -77,7 +78,6 @@ const OfficeInfo = React.forwardRef<
                   classes={{ root: classes.button }}
                   loadingIndicator={<CircularProgress size={24} classes={{ svg: classes.svg }} />}
                   loading={isLoading}
-                  disabled={!dirty}
                   variant="contained"
                   onClick={(e) => {
                     if (isValid && dirty) {
